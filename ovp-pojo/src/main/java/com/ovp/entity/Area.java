@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 /**
- * 视频标签对应类
+ * 分区类
  */
-public class VideoTag {
-    private Long videoId; // 视频ID
-    private Long tagId; // 标签ID
+public class Area {
+    private Long id;
+    private String name;       // 分区名称
+    private String description; // 分区描述
 }
