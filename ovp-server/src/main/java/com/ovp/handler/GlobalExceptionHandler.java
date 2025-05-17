@@ -1,5 +1,6 @@
 package com.ovp.handler;
 
+import com.ovp.constant.MessageConstant;
 import com.ovp.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,4 +26,16 @@ public class GlobalExceptionHandler {
         return Result.error(ex.getMessage());
     }
 
+    @ExceptionHandler
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
+        log.error("异常信息：{}", ex.getMessage());
+        String message = ex.getMessage();
+        if (message.contains("Duplicate entry")) {
+            String[] split = message.split(" ");
+            String msg = split[2] + MessageConstant.ALREADY_EXIST;
+            return Result.error(msg);
+        }else{
+            return Result.error(MessageConstant.UNKNOWN_ERROR);
+        }
+    }
 }

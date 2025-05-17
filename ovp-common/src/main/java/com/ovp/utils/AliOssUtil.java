@@ -20,8 +20,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @Slf4j
-//@Component  如果在这里添加@Component注解，并且server模块正确依赖了common模块，
-// 那么启动类就可以正常扫描到这个AliOssUtil类，并可以直接注入使用。
+//@Component 如果在这里添加@Component注解，并且server模块正确依赖了common模块，
+//那么启动类就可以正常扫描到这个AliOssUtil类，并可以直接注入使用。
+//如果不加，要写一个Configuration配置类，用@Bean注入AliOssUtil
 public class AliOssUtil {
 
     private AliOssProperties aliyunOSSProperties;

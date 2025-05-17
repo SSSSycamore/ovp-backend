@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ovp.mapper.UserMapper">
+
+    <insert id="insert">
+        insert into user (username, password, email, avatar_url, age, phone, status, role, nickname, gender, bio, create_time, update_time)
+        values (#{username},#{password},#{email},#{avatarUrl},#{age},#{phone},#{status},#{role},#{nickname},#{gender},#{bio},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateByUserId" parameterType="com.ovp.entity.User">
+        update user
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="bio != null">bio = #{bio},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

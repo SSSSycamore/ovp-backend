@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "ovp.alioss")
+@ConfigurationProperties(prefix = "eovp.alioss")
 public class AliOssProperties {
     private String endpoint;
     private String bucketName;
