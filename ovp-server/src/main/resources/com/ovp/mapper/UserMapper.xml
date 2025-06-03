@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ovp.mapper.UserMapper">
 
-    <insert id="insert">
-        insert into user (username, password, email, avatar_url, age, phone, status, role, nickname, gender, bio, create_time, update_time)
-        values (#{username},#{password},#{email},#{avatarUrl},#{age},#{phone},#{status},#{role},#{nickname},#{gender},#{bio},#{createTime},#{updateTime})
+    <insert id="insertUser">
+        insert into user (username, password, email, avatar_url, age, phone, status, role, nickname, gender, bio, create_time, update_time,address,birthday)
+        values (#{username},#{password},#{email},#{avatarUrl},#{age},#{phone},#{status},#{role},#{nickname},#{gender},#{bio},#{createTime},#{updateTime},#{address},#{birthday})
     </insert>
     <update id="updateByUserId" parameterType="com.ovp.entity.User">
         update user
@@ -22,4 +22,18 @@
         </set>
         where id = #{id}
     </update>
+    <select id="querySortedUserListByNickname" resultType="com.ovp.vo.UserQueryVO">
+        select user.*,count(*) as fansCount from user,follow
+        <where>
+            user.id = follow.followee_id
+            <if test="nickname != null">
+                and user.nickname like concat('%', #{nickname}, '%')
+            </if>
+            <if test="followerId != null">
+                and follow.follower_id = #{followerId}
+            </if>
+        </where>
+        group by user.id
+        order by ${sortBy} ${sortOrder}
+    </select>
 </mapper>

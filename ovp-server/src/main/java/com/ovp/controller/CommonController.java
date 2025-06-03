@@ -1,15 +1,13 @@
 package com.ovp.controller;
 
 import com.ovp.dto.UserLoginDTO;
-import com.ovp.entity.User;
 import com.ovp.exception.FileUploadFailedException;
-import com.ovp.properties.AliOssProperties;
 import com.ovp.result.Result;
 import com.ovp.service.UserService;
 import com.ovp.utils.AliOssUtil;
 import com.ovp.vo.UserLoginVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,20 +20,20 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping
 @RequiredArgsConstructor
 @Slf4j
-@Api(tags = "公共接口")
+@Tag(name = "公共接口")
 public class CommonController {
     private final UserService userService;
     private final AliOssUtil aliOssUtil;
 
     @PostMapping("/login")
-    @ApiOperation("用户登录")
+    @Operation(summary = "用户登录")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO){
         log.info("用户登录:{}", userLoginDTO);
         return Result.success(userService.login(userLoginDTO));
     }
 
     @PostMapping("/upload")
-    @ApiOperation("文件上传")
+    @Operation(summary ="文件上传")
     public Result<String> upload(MultipartFile file){
         try {
             log.info("文件上传:{}", file.getOriginalFilename());

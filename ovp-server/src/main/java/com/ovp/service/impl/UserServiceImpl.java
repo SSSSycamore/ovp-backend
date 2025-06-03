@@ -1,10 +1,14 @@
 package com.ovp.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ovp.annotation.AutoFill;
 import com.ovp.constant.MessageConstant;
 import com.ovp.constant.UserRoleConstant;
 import com.ovp.constant.UserStatusConstant;
 import com.ovp.dto.UserLoginDTO;
+import com.ovp.dto.UserQueryDTO;
 import com.ovp.dto.UserRegisterDTO;
 import com.ovp.entity.User;
 import com.ovp.enumeration.OperationType;
@@ -14,21 +18,28 @@ import com.ovp.exception.AccountNotFoundException;
 import com.ovp.exception.PasswordErrorException;
 import com.ovp.mapper.UserMapper;
 import com.ovp.properties.JwtProperties;
+import com.ovp.result.PageResult;
+import com.ovp.service.FollowService;
 import com.ovp.service.UserService;
+import com.ovp.service.VideoService;
 import com.ovp.utils.JwtUtil;
 import com.ovp.vo.UserLoginVO;
+import com.ovp.vo.UserQueryVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
+    private final VideoService videoService;
+    private final FollowService followService;
     private final JwtProperties jwtProperties;
     @Override
     @AutoFill(value = OperationType.INSERT)
@@ -38,7 +49,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(UserStatusConstant.NORMAL);
         user.setRole(UserRoleConstant.USER);
         user.setPassword(DigestUtils.md5DigestAsHex(userRegisterDTO.getPassword().getBytes()));
-        userMapper.insert(user);
+        userMapper.insertUser(user);
     }
 
     @Override
@@ -95,5 +106,25 @@ public class UserServiceImpl implements UserService {
         User updatedUser = new User();
         BeanUtils.copyProperties(userRegisterDTO, updatedUser);
         userMapper.updateByUserId(updatedUser);
+    }
+
+    @Override
+    public PageResult queryUserList(UserQueryDTO userQueryDTO) {
+        String nickname = userQueryDTO.getNickname();
+        Integer page = userQueryDTO.getPage();
+        Integer pageSize = userQueryDTO.getPageSize();
+        String sortBy = userQueryDTO.getSortBy();
+        Boolean isAsc = userQueryDTO.getIsAsc();
+        String sortOrder = isAsc ? "asc" : "desc";
+        PageHelper.startPage(page, pageSize);
+        List<UserQueryVO> userList = userMapper.querySortedUserListByNickname(nickname,sortBy,sortOrder);
+        for (UserQueryVO userQueryVO : userList) {
+            userQueryVO.setVideoCount(videoService.getVideoCountById(userQueryVO.getId()));
+            userQueryVO.setFollowCount(followService.getFollowCountById(userQueryVO.getId()));
+            userQueryVO.setIsFollow(followService.isFollowByCurrentUser(userQueryVO.getId()));
+        }
+        Page p = (Page) userList;
+        PageResult pageResult = new PageResult(p.getTotal(),userList);
+        return pageResult;
     }
 }

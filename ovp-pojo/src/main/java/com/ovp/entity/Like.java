@@ -1,5 +1,6 @@
 package com.ovp.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 /**
  * 点赞类
  */
+@TableName("`like`")
 public class Like {
     private Long id;
     private Long userId; // 用户ID

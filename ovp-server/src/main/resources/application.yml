@@ -9,6 +9,11 @@ spring:
     url: jdbc:mysql://localhost:3306/ovp
     username: root
     password: 123456
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
 mybatis:
   type-aliases-package: com.ovp.entity
@@ -36,3 +41,33 @@ ovp:
     endpoint: https://oss-cn-beijing.aliyuncs.com
     bucketName: sssycamore
     region: cn-beijing
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  production: false
+  openapi:
+    title: ovp在线视频播放平台接口文档
+    description: 接口文档说明
+    version: 1.0
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.ovp.controller
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.ovp.controller
