@@ -19,6 +19,7 @@ public class VideoDetailVO {
     private String description; //视频描述
     private String coverUrl; //视频封面URL
     private String videoUrl; //视频URL
+    private Double durationSeconds; // 视频时长（秒）
     private Long viewCount; //播放数
     private Long likeCount;  //点赞数
     private Long commentCount; //评论数

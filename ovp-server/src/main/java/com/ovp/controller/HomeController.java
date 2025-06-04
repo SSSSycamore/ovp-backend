@@ -19,7 +19,7 @@ public class HomeController {
     private final VideoService videoService;
 
     @GetMapping("/recommended-image")
-    @Operation(description = "获取推荐图片")
+    @Operation(summary = "获取推荐图片")
     public Result<String> getRecommendedImage() {
         log.info("获取推荐图片");
         // 这里可以返回一个推荐图片的URL或Base64编码的图片数据
@@ -28,7 +28,7 @@ public class HomeController {
     }
 
     @GetMapping("/featured-image")
-    @Operation(description = "获取精选图片")
+    @Operation(summary = "获取精选图片")
     public Result<String> getFeaturedImage() {
         log.info("获取精选图片");
         // 这里可以返回一个推荐图片的URL或Base64编码的图片数据

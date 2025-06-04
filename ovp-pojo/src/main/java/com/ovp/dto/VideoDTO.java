@@ -2,6 +2,8 @@ package com.ovp.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
  */
 public class VideoDTO {
     @Schema(description = "分区id")
-    @NotEmpty(message = "分区id不能为空")
+    @NotNull(message = "分区id不能为空")
     private Long area_id;
 
     @Schema(description = "视频标题")
@@ -32,4 +34,8 @@ public class VideoDTO {
     @Schema(description = "视频地址")
     @NotEmpty(message = "视频地址不能为空")
     private String video_url;
+
+    @Schema(description = "视频时长（秒）")
+    @Positive(message = "视频时长应该大于0")
+    private Double durationSeconds; // 视频时长（秒）
 }

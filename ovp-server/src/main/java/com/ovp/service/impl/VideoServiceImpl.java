@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ovp.context.BaseContext;
 import com.ovp.dto.PageQueryDTO;
+import com.ovp.dto.RankVideoQueryDTO;
 import com.ovp.dto.VideoDTO;
 import com.ovp.entity.Like;
 import com.ovp.entity.Video;
@@ -81,6 +82,37 @@ public class VideoServiceImpl implements VideoService {
         Long currentId = BaseContext.getCurrentId();
         videoBaseVOList.stream().forEach(videoBaseVO-> videoBaseVO.setIsLike(checkIfUserLikesVideo(currentId, videoBaseVO.getId())));
         return videoBaseVOList;
+    }
+
+    @Override
+    public List<VideoBaseVO> rankQuery(RankVideoQueryDTO rankVideoQueryDTO) {
+        Integer type = rankVideoQueryDTO.getType();
+        Long areaId = rankVideoQueryDTO.getAreaId();
+        LambdaQueryWrapper<Video> queryWrapper = new LambdaQueryWrapper<>();
+        if (type != null) {
+            switch (type) {
+                case 1: // 最新发布
+                    queryWrapper.orderByDesc(Video::getUploadTime);
+                    break;
+                case 2: // 最多观看
+                    queryWrapper.orderByDesc(Video::getViewCount);
+                    break;
+                case 3: // 最多点赞
+                    queryWrapper.orderByDesc(Video::getLikeCount);
+                    break;
+                default:
+                    throw new IllegalArgumentException("无效的排行榜类型");
+            }
+        }
+        queryWrapper.eq(areaId != null, Video::getAreaId, areaId);
+        Page<Video> videoPage = videoMapper.selectPage(
+                new Page<>(rankVideoQueryDTO.getPageNo(), rankVideoQueryDTO.getPageSize()),
+                queryWrapper
+        );
+        List<VideoBaseVO> videoBaseVOS = BeanUtil.copyToList(videoPage.getRecords(), VideoBaseVO.class);
+        Long currentId = BaseContext.getCurrentId();
+        videoBaseVOS.forEach(videoBaseVO -> videoBaseVO.setIsLike(checkIfUserLikesVideo(currentId, videoBaseVO.getId())));
+        return videoBaseVOS;
     }
 
     private Boolean checkIfUserLikesVideo(Long currentId, Long videoId) {

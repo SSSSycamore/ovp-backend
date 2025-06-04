@@ -1,6 +1,7 @@
 package com.ovp.controller;
 
 import cn.hutool.db.PageResult;
+import com.ovp.dto.RankVideoQueryDTO;
 import com.ovp.dto.VideoDTO;
 import com.ovp.dto.PageQueryDTO;
 import com.ovp.result.Result;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class VideoController {
 
     @Operation(summary = "新建视频功能")
     @PostMapping
-    public Result createVideo(@RequestBody VideoDTO videoDTO){
+    public Result createVideo(@RequestBody @Validated VideoDTO videoDTO){
         log.info("新建视频:{}", videoDTO);
         videoService.createVideo(videoDTO);
         return Result.success();
@@ -54,5 +56,12 @@ public class VideoController {
         log.info("分页查询视频:{}", videoPageQueryDTO);
         List<VideoBaseVO> pageResult = videoService.pageQuery(videoPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @Operation(summary = "排行榜查询视频")
+    @PostMapping("/rank")
+    public Result<List<VideoBaseVO>> rankQuery(@RequestBody @Validated RankVideoQueryDTO rankVideoQueryDTO){
+        log.info("排行榜查询视频:{}", rankVideoQueryDTO);
+        return Result.success(videoService.rankQuery(rankVideoQueryDTO));
     }
 }

@@ -2,6 +2,7 @@ package com.ovp.service;
 
 import cn.hutool.db.PageResult;
 import com.ovp.dto.PageQueryDTO;
+import com.ovp.dto.RankVideoQueryDTO;
 import com.ovp.dto.VideoDTO;
 import com.ovp.entity.Video;
 import com.ovp.vo.VideoBaseVO;
@@ -20,4 +21,6 @@ public interface VideoService {
     VideoDetailVO getVideoDetailById(Long videoId);
 
     List<VideoBaseVO> pageQuery(PageQueryDTO videoPageQueryDTO);
+
+    List<VideoBaseVO> rankQuery(RankVideoQueryDTO rankVideoQueryDTO);
 }

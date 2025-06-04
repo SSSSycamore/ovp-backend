@@ -33,6 +33,7 @@ public class Video {
     private LocalDateTime uploadTime;  //上传时间
     private LocalDateTime updateTime;  //更新时间
     private Integer status; // 审核状态，如 0-待审核，1-审核通过，2-审核不通过，3-已下架
+    private Double durationSeconds; // 视频时长（秒）
     @TableField(exist = false)
     private List<Tag> tags;   //视频标签集合
 }

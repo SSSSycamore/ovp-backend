@@ -18,4 +18,5 @@ public class VideoBaseVO {
     private Integer viewCount; // 播放量
     private Integer likeCount; // 点赞数
     private Boolean isLike; // 是否点赞（当前用户是否点赞）
+    private Double durationSeconds; // 视频时长（秒）
 }

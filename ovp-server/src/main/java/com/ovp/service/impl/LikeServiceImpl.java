@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class LikeServiceImpl implements LikeService {
     private final LikeMapper likeMapper;
-    private final CommentMapper commentMapper;
 
     @Override
     public Boolean changeVideoLike(Long videoId) {
