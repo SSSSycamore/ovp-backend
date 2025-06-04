@@ -1,5 +1,8 @@
 package com.ovp.service;
 
 public interface LikeService {
-    void likeVideo(Long videoId);
+
+    Boolean changeVideoLike(Long videoId);
+
+    Boolean changeCommentLike(Long commentId);
 }

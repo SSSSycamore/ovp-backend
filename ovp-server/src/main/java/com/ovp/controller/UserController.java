@@ -63,8 +63,6 @@ public class UserController {
         PageResult pageResult = userService.queryUserList(userQueryDTO);
         return Result.success(pageResult);
     }
-
-
 }
 
 

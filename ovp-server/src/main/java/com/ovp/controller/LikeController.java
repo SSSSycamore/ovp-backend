@@ -19,11 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class LikeController {
     private final LikeService likeService;
 
-    @Operation(summary = "点赞视频功能")
+    @Operation(summary = "点赞/取消点赞视频功能")
     @PostMapping("/video/{videoId}")
-    public Result likeVideo(@PathVariable Long videoId){
-        log.info("点赞视频:{}", videoId);
-        likeService.likeVideo(videoId);
-        return Result.success();
+    public Result<Boolean> changeVideoLike(@PathVariable Long videoId){
+        log.info("点赞/取消点赞视频:{}", videoId);
+        return Result.success(likeService.changeVideoLike(videoId));
+    }
+
+    @Operation(summary = "点赞/取消点赞评论功能")
+    @PostMapping("/comment/{commentId}")
+    public Result<Boolean> changeCommentLike(@PathVariable Long commentId){
+        log.info("点赞/取消点赞评论:{}", commentId);
+        return Result.success(likeService.changeCommentLike(commentId));
     }
 }
