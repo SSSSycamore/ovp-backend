@@ -11,7 +11,6 @@ import com.ovp.dto.RankVideoQueryDTO;
 import com.ovp.dto.VideoDTO;
 import com.ovp.entity.Like;
 import com.ovp.entity.Video;
-import com.ovp.exception.UnloginException;
 import com.ovp.mapper.LikeMapper;
 import com.ovp.mapper.VideoMapper;
 import com.ovp.service.VideoService;
