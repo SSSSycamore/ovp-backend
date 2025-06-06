@@ -71,3 +71,9 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       packages-to-scan: com.ovp.controller
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      update-strategy:

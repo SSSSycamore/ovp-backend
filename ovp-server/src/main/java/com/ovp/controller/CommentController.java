@@ -25,12 +25,14 @@ public class CommentController {
     @Operation(summary = "查询视频评论")
     @GetMapping("/videoId/{videoId}")
     public Result<List<CommentTreeVO>> queryVideoComments(@PathVariable Long videoId){
+        log.info("查询视频评论, videoId: {}", videoId);
         return Result.success(commentService.queryVideoComments(videoId));
     }
 
     @Operation(summary = "发表评论")
     @PostMapping("/create")
     public Result createComment(@RequestBody Comment comment) {
+        log.info("用户{}发表评论: {}", BaseContext.getCurrentId(), comment);
         commentService.save(comment);
         return Result.success("评论成功");
     }

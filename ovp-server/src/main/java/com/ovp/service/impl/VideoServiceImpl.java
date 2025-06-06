@@ -118,7 +118,7 @@ public class VideoServiceImpl implements VideoService {
     private Boolean checkIfUserLikesVideo(Long currentId, Long videoId) {
         return likeMapper.selectOne(
                 new QueryWrapper<Like>()
-                        .eq("user_id", /*currentId*/1L)
+                        .eq("user_id", currentId)
                         .eq("video_id", videoId)
         ) != null;
     }
