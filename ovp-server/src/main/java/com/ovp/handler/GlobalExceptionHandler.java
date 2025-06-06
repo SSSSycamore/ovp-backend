@@ -1,7 +1,6 @@
 package com.ovp.handler;
 
 import com.ovp.constant.MessageConstant;
-import com.ovp.exception.UnloginException;
 import com.ovp.result.Result;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
