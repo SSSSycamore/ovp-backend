@@ -14,25 +14,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 public class WebMvcConfiguration implements WebMvcConfigurer {
     private final JwtTokenInterceptor jwtTokenInterceptor;
-    //@Override
-    //public void addInterceptors(InterceptorRegistry registry) {
-    //    registry.addInterceptor(jwtTokenInterceptor)
-    //            .addPathPatterns("/**")
-    //            .excludePathPatterns(
-    //                    "/login",
-    //                    "/user/register",
-    //                    "/favicon.ico",
-    //                    "/doc.html",
-    //                    "/webjars/**",
-    //                    "/swagger-resources/**",
-    //                    "/swagger-ui/**",
-    //                    "/swagger-ui.html",
-    //                    "/v3/api-docs/**",
-    //                    "/v2/api-docs/**",
-    //                    "/error"
-    //            );
-    //
-    //}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(jwtTokenInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/login",
+                        "/user/register",
+                        "/favicon.ico",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**",
+                        "/v2/api-docs/**",
+                        "/error"
+                );
+
+    }
 
     //@Bean
     //public Docket docket() {
