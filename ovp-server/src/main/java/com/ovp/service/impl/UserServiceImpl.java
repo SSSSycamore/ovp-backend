@@ -30,6 +30,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -105,6 +106,7 @@ public class UserServiceImpl implements UserService {
         }
         User updatedUser = new User();
         BeanUtils.copyProperties(userRegisterDTO, updatedUser);
+        updatedUser.setUpdateTime(LocalDateTime.now());
         userMapper.updateByUserId(updatedUser);
     }
 
