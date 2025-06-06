@@ -20,7 +20,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         "/login",
-                        "/user/register",
+                        "/users/register",
+                        "/home/**",
+                        "/videos/**",
                         "/favicon.ico",
                         "/doc.html",
                         "/webjars/**",
