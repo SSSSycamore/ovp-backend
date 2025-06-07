@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +30,7 @@ public class UserRegisterDTO {
     @Schema(description = "年龄")
     private Integer age; //年龄
     @Schema(description = "生日")
-    private String birthday; //生日
+    private LocalDate birthday; //生日
     @Schema(description = "地址")
     private String address; //地址
     @Schema(description = "手机号")

@@ -14,7 +14,10 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
 mybatis:
   type-aliases-package: com.ovp.entity
   configuration:
@@ -24,7 +27,7 @@ mybatis:
 logging:
   level:
     com:
-      sky:
+      ovp:
         mapper: debug
         service: info
         controller: info

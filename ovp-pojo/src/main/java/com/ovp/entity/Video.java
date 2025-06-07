@@ -20,7 +20,7 @@ import java.util.List;
 @TableName(value = "video", autoResultMap = true)
 public class Video {
     private Long id;
-    private Long userId;    // 上传者的用户ID
+    private Long userId;  // 上传者的用户ID
     private Long areaId;  // 视频分区ID
     private String title;  //视频标题
     private String description; //视频描述

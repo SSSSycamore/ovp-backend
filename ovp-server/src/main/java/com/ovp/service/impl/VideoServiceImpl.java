@@ -42,6 +42,10 @@ public class VideoServiceImpl implements VideoService {
         video.setUploadTime(LocalDateTime.now());
         // TODO 默认状态为1，表示视频不需要审核
         video.setStatus(1);
+        video.setAreaId(videoDTO.getArea_id());
+        video.setVideoUrl(videoDTO.getVideo_url());
+        video.setCoverUrl(videoDTO.getCover_url());
+        System.out.println("video = " + video);
         videoMapper.insert(video);
     }
 
